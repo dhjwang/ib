@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="137.64713mm"
-   height="12.018338mm"
-   viewBox="0 0 137.64713 12.018338"
+   width="139.87808mm"
+   height="14.518686mm"
+   viewBox="0 0 139.87809 14.518686"
    version="1.1"
    id="svg2159"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="logo_v2.svg"
+   sodipodi:docname="logo_v2_debug.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +24,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.9628563"
-     inkscape:cx="260.84436"
-     inkscape:cy="76.673978"
+     inkscape:cx="233.8429"
+     inkscape:cy="67.503668"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -39,7 +39,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-87.611893,-92.333243)">
+     transform="translate(-86.822713,-91.004882)">
     <g
        aria-label="ICE BREAKERS"
        id="text78029"
@@ -53,6 +53,13 @@
            aria-label="ICE BREAKERZ"
            id="text1529"
            style="stroke-width:0.019881">
+          <rect
+             style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ff0808;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             id="rect3586"
+             width="139.37808"
+             height="14.018686"
+             x="9.5207319"
+             y="-27.724478" />
           <text
              xml:space="preserve"
              style="font-weight:bold;font-size:17.4639px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.00929998"
