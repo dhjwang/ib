@@ -31,6 +31,7 @@ export const useAuthorizedContext = () => {
     console.log("called");
     const res = await fetch(auth, {
       method: "GET",
+      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
