@@ -1,0 +1,13 @@
+.btn {
+  display: flex;
+  color: rgb(193, 220, 231);
+  background-color: rgb(57, 78, 168);
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  height: 95%;
+  width: 40%;
+  border-radius: 10px;
+  padding: 0 5px;
+  /* cursor: pointer; */
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="86.926834mm"
+   height="86.926834mm"
+   viewBox="0 0 86.926834 86.926834"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="x_button.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:snap-global="true"
+     inkscape:zoom="1.3879489"
+     inkscape:cx="114.55753"
+     inkscape:cy="165.3519"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect7778"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect7670"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4609">
+      <stop
+         style="stop-color:#26264a;stop-opacity:1"
+         offset="0"
+         id="stop4605" />
+      <stop
+         style="stop-color:#82c3f0;stop-opacity:1"
+         offset="1"
+         id="stop4607" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect991"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect963"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4609"
+       id="radialGradient4611"
+       cx="105"
+       cy="148.5"
+       fx="105"
+       fy="148.5"
+       r="43.463417"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(5.3222649e-8)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-61.536583,-105.03658)">
+    <circle
+       style="fill:url(#radialGradient4611);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round"
+       id="path846"
+       cx="105"
+       cy="148.5"
+       r="43.463417" />
+    <path
+       id="path7668"
+       style="color:#000000;fill:#e8e3f7;stroke-width:1;-inkscape-stroke:none;fill-opacity:1"
+       d="m 83.194353,117.50112 -9.193238,9.19324 21.805388,21.8059 -21.805388,21.80539 9.193238,9.19323 21.805387,-21.80538 21.80591,21.80538 9.19324,-9.19323 -21.8059,-21.80539 21.8059,-21.8059 -9.19324,-9.19324 -21.80591,21.8059 z" />
+  </g>
+</svg>
