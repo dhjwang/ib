@@ -15,7 +15,7 @@ const Scores = () => {
   const [lobby, setLobby] = lobbycontext;
   const navigate = useNavigate();
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/scores/";
+  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/scores/";
 
   const resetScores = async (x) => {
     if (players.length) {
@@ -36,17 +36,20 @@ const Scores = () => {
             player_score: 0,
           }),
         });
-        await fetch("https://ib-api.onrender.com/api/lobbies/" + lobby, {
-          method: "PUT",
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            lobby_round: 0,
-          }),
-        });
+        await fetch(
+          "https://ib-api.onrender.com/api/proxy/api/lobbies/" + lobby,
+          {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              lobby_round: 0,
+            }),
+          }
+        );
       } else {
         sessionStorage.setItem("sessionplayers", JSON.stringify(players));
         sessionStorage.setItem("round", 0);

@@ -18,8 +18,9 @@ const Lobbies = () => {
   const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/lobbies/";
-  const logoutEndpoint = "https://ib-api.onrender.com/api/auth/logout";
+  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/lobbies/";
+  const logoutEndpoint =
+    "https://ib-api.onrender.com/api/proxy/api/auth/logout";
 
   const logoutSession = async () => {
     const res = await fetch(logoutEndpoint, {
@@ -78,7 +79,7 @@ const Lobbies = () => {
   };
 
   const loadLobby = async (id, lobby_round) => {
-    const scores = "https://ib-api.onrender.com/api/scores/";
+    const scores = "https://ib-api.onrender.com/api/proxy/api/scores/";
     try {
       const res = await fetch(scores + id, {
         credentials: "include",

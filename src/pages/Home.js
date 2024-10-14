@@ -21,7 +21,7 @@ const Home = () => {
   const [isAuthorized, setAuthorized] = useAuthorizedContext();
   const [isLoading, setLoading] = useState(true);
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/scores/";
+  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/scores/";
 
   useEffect(() => {
     if (isAuthorized === false) {

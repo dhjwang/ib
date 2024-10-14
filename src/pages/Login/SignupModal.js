@@ -10,7 +10,7 @@ const SignupModal = ({ show, onHide }) => {
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/users/";
+  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/users/";
 
   const handleSubmit = async () => {
     const usernameCheck = await fetch(apiEndpoint + username);
@@ -32,15 +32,18 @@ const SignupModal = ({ show, onHide }) => {
         },
         body: JSON.stringify({ username: username, password: password }),
       });
-      const auth = await fetch("https://ib-api.onrender.com/api/auth/", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: username, password: password }),
-      });
+      const auth = await fetch(
+        "https://ib-api.onrender.com/api/proxy/api/auth/",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username: username, password: password }),
+        }
+      );
       setAuthorized(true);
     }
   };
