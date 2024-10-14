@@ -17,6 +17,7 @@ const Menu = () => {
   const logoutSession = async () => {
     const res = await fetch(logoutEndpoint, {
       method: "GET",
+      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

@@ -34,6 +34,7 @@ const SignupModal = ({ show, onHide }) => {
       });
       const auth = await fetch("https://ib-api.onrender.com/api/auth/", {
         method: "POST",
+        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

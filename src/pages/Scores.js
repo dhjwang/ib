@@ -27,6 +27,7 @@ const Scores = () => {
       if (isAuthorized) {
         await fetch(apiEndpoint + `?lobby=${lobby}`, {
           method: "PUT",
+          credentials: "include",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -37,6 +38,7 @@ const Scores = () => {
         });
         await fetch("https://ib-api.onrender.com/api/lobbies/" + lobby, {
           method: "PUT",
+          credentials: "include",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -84,6 +86,7 @@ const Scores = () => {
     if (isAuthorized) {
       await fetch(apiEndpoint + id, {
         method: "PUT",
+        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

@@ -18,6 +18,7 @@ const Active = ({ id, handleWord, icelevel, score, opp }) => {
   const updateRound = async () => {
     await fetch("https://ib-api.onrender.com/api/lobbies/" + lobby, {
       method: "PUT",
+      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -38,6 +39,7 @@ const Active = ({ id, handleWord, icelevel, score, opp }) => {
         if (isAuthorized) {
           await fetch(apiEndpoint + i, {
             method: "PUT",
+            credentials: "include",
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
@@ -67,6 +69,7 @@ const Active = ({ id, handleWord, icelevel, score, opp }) => {
         if (isAuthorized) {
           await fetch(apiEndpoint + i, {
             method: "PUT",
+            credentials: "include",
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
@@ -82,6 +85,7 @@ const Active = ({ id, handleWord, icelevel, score, opp }) => {
       if (isAuthorized) {
         await fetch(apiEndpoint + opp[0], {
           method: "PUT",
+          credentials: "include",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -109,6 +113,7 @@ const Active = ({ id, handleWord, icelevel, score, opp }) => {
         if (isAuthorized) {
           await fetch(apiEndpoint + i, {
             method: "PUT",
+            credentials: "include",
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",

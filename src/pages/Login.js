@@ -4,11 +4,10 @@ import "./Login/Login.css";
 import SignupModal from "./Login/SignupModal.js";
 import Button from "../button.js";
 import "../App.css";
-import { PlayersContext } from "../PlayersContext";
+import { useAuthorizedContext } from "../PlayersContext";
 
 const Login = () => {
-  const { authorizedcontext } = useContext(PlayersContext);
-  const [isAuthorized, setAuthorized] = authorizedcontext;
+  const [isAuthorized, setAuthorized] = useAuthorizedContext();
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
