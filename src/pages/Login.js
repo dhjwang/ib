@@ -4,10 +4,11 @@ import "./Login/Login.css";
 import SignupModal from "./Login/SignupModal.js";
 import Button from "../button.js";
 import "../App.css";
-import { useAuthorizedContext } from "../PlayersContext";
+import { PlayersContext } from "../PlayersContext";
 
 const Login = () => {
-  const [isAuthorized, setAuthorized] = useAuthorizedContext();
+  const { authorizedcontext } = useContext(PlayersContext);
+  const [isAuthorized, setAuthorized] = authorizedcontext;
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +27,7 @@ const Login = () => {
     if (username && password) {
       const res = await fetch(apiEndpoint, {
         method: "POST",
+        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
