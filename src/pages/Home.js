@@ -40,10 +40,7 @@ const Home = () => {
   const removePlayer = async (id) => {
     setPlayers(players.filter((user) => user.score_id !== id));
     if (isAuthorized) {
-      await fetch(apiEndpoint + id, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      await fetch(apiEndpoint + id, { method: "DELETE" });
     } else {
       sessionStorage.setItem(
         "sessionplayers",
@@ -58,16 +55,13 @@ const Home = () => {
     if (isAuthorized) {
       await fetch(apiEndpoint, {
         method: "POST",
-        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ player_name: name, lobby_id: lobby }),
       });
-      const res = await fetch(apiEndpoint + lobby, {
-        credentials: "include",
-      });
+      const res = await fetch(apiEndpoint + lobby);
       data = await res.json();
     } else {
       const ids = new Date();

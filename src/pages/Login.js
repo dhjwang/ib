@@ -26,7 +26,6 @@ const Login = () => {
     if (username && password) {
       const res = await fetch(apiEndpoint, {
         method: "POST",
-        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

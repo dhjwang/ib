@@ -24,7 +24,6 @@ const Lobbies = () => {
   const logoutSession = async () => {
     const res = await fetch(logoutEndpoint, {
       method: "GET",
-      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -36,9 +35,7 @@ const Lobbies = () => {
     if (isAuthorized !== false) {
       const getdata = async () => {
         try {
-          const res = await fetch(apiEndpoint, {
-            credentials: "include",
-          });
+          const res = await fetch(apiEndpoint);
           if (!res.ok) {
             throw new Error(res.statusText);
           }
@@ -62,16 +59,13 @@ const Lobbies = () => {
     setLoading(true);
     await fetch(apiEndpoint, {
       method: "POST",
-      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ lobby_name: name }),
     });
-    const res = await fetch(apiEndpoint, {
-      credentials: "include",
-    });
+    const res = await fetch(apiEndpoint);
     const data = await res.json();
     setLobbies(data);
     setLoading(false);
@@ -80,9 +74,7 @@ const Lobbies = () => {
   const loadLobby = async (id, lobby_round) => {
     const scores = "https://ib-api.onrender.com/api/scores/";
     try {
-      const res = await fetch(scores + id, {
-        credentials: "include",
-      });
+      const res = await fetch(scores + id);
       if (!res.ok) {
         throw new Error(res.statusText);
       }
@@ -100,7 +92,7 @@ const Lobbies = () => {
 
   const removeLobby = async (id) => {
     setLobbies(lobbies.filter((lobby) => lobby.lobby_id !== id));
-    await fetch(apiEndpoint + id, { method: "DELETE", credentials: "include" });
+    await fetch(apiEndpoint + id, { method: "DELETE" });
   };
 
   return (
