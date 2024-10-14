@@ -100,7 +100,7 @@ const Lobbies = () => {
 
   const removeLobby = async (id) => {
     setLobbies(lobbies.filter((lobby) => lobby.lobby_id !== id));
-    await fetch(apiEndpoint + id, { method: "DELETE" });
+    await fetch(apiEndpoint + id, { method: "DELETE", credentials: "include" });
   };
 
   return (

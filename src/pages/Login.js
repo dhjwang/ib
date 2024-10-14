@@ -16,11 +16,11 @@ const Login = () => {
 
   const apiEndpoint = "https://ib-api.onrender.com/api/auth/";
 
-  // useEffect(() => {
-  //   if (isAuthorized) {
-  //     navigate("/lobbies");
-  //   }
-  // }, [isAuthorized]);
+  useEffect(() => {
+    if (isAuthorized) {
+      navigate("/lobbies");
+    }
+  }, [isAuthorized]);
 
   const checkLogin = async () => {
     if (username && password) {
