@@ -21,7 +21,7 @@ export const PlayersProvider = (props) => {
   );
 };
 
-const auth = "/api/auth/status";
+const auth = "https://ib-api.onrender.com/api/auth/status";
 
 export const useAuthorizedContext = () => {
   const { authorizedcontext } = useContext(PlayersContext);
