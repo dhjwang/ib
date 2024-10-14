@@ -14,7 +14,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/auth/";
+  const apiEndpoint = "/api/auth/";
 
   useEffect(() => {
     if (isAuthorized) {

@@ -12,7 +12,7 @@ const Menu = () => {
   const [rulesShow, setRulesShow] = useState(false);
   const navigate = useNavigate();
 
-  const logoutEndpoint = "https://ib-api.onrender.com/api/auth/logout";
+  const logoutEndpoint = "/api/auth/logout";
 
   const logoutSession = async () => {
     const res = await fetch(logoutEndpoint, {

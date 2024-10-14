@@ -15,7 +15,7 @@ const Scores = () => {
   const [lobby, setLobby] = lobbycontext;
   const navigate = useNavigate();
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/scores/";
+  const apiEndpoint = "/api/scores/";
 
   const resetScores = async (x) => {
     if (players.length) {
@@ -35,7 +35,7 @@ const Scores = () => {
             player_score: 0,
           }),
         });
-        await fetch("https://ib-api.onrender.com/api/lobbies/" + lobby, {
+        await fetch("/api/lobbies/" + lobby, {
           method: "PUT",
           headers: {
             Accept: "application/json",
