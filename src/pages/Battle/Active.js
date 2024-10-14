@@ -11,12 +11,12 @@ const Active = ({ id, handleWord, icelevel, score, opp }) => {
   const [isAuthorized, setAuthorized] = useAuthorizedContext();
   const [lobby, setLobby] = lobbycontext;
 
-  const apiEndpoint = "/api/scores/";
+  const apiEndpoint = "https://ib-api.onrender.com/api/scores/";
 
   const ice = "ICE";
 
   const updateRound = async () => {
-    await fetch("/api/lobbies/" + lobby, {
+    await fetch("https://ib-api.onrender.com/api/lobbies/" + lobby, {
       method: "PUT",
       headers: {
         Accept: "application/json",
