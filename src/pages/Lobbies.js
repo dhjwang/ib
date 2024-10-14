@@ -43,9 +43,10 @@ const Lobbies = () => {
           setLobbies(data);
           setLoading(false);
         } catch (err) {
+          console.log("error");
           console.log(err.message);
-          setAuthorized(false);
-          navigate("/");
+          // setAuthorized(false);
+          // navigate("/");
         }
       };
       getdata();
