@@ -16,43 +16,43 @@ const Login = () => {
 
   const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/auth/";
 
-  useEffect(() => {
-    if (isAuthorized) {
-      navigate("/lobbies");
-    }
-  }, [isAuthorized]);
+  // useEffect(() => {
+  //   if (isAuthorized) {
+  //     navigate("/lobbies");
+  //   }
+  // }, [isAuthorized]);
 
-  const checkLogin = async () => {
-    if (username && password) {
-      const res = await fetch(apiEndpoint, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: username, password: password }),
-      });
+  // const checkLogin = async () => {
+  //   if (username && password) {
+  //     const res = await fetch(apiEndpoint, {
+  //       method: "POST",
+  //       credentials: "include",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ username: username, password: password }),
+  //     });
 
-      const data = await res.status;
-      if (data === 200) {
-        setAuthorized(true);
-      } else if (data === 401) {
-        setError("Invalid username or password");
-      } else {
-        setError("An error occurred. Please restart the page.");
-      }
-    } else {
-      setError("Enter a username and password");
-    }
-  };
+  //     const data = await res.status;
+  //     if (data === 200) {
+  //       setAuthorized(true);
+  //     } else if (data === 401) {
+  //       setError("Invalid username or password");
+  //     } else {
+  //       setError("An error occurred. Please restart the page.");
+  //     }
+  //   } else {
+  //     setError("Enter a username and password");
+  //   }
+  // };
 
   return (
     <div className="wrapper">
       <div className="home">
         <div className="logo"></div>
         <div className="body" id="form-wrapper">
-          <form className="login" onSubmit={checkLogin}>
+          {/* <form className="login" onSubmit={checkLogin}>
             <div className="field">
               <div>Username</div>
               <input
@@ -81,7 +81,7 @@ const Login = () => {
               {error}
             </div>
             <button className="modalbtn">Login</button>
-          </form>
+          </form> */}
         </div>
         <div className="footer">
           <Button onclick={() => setShow(true)} name="Sign up" />
@@ -92,11 +92,11 @@ const Login = () => {
             }}
             name="Guest"
           />
-          <SignupModal
+          {/* <SignupModal
             show={show}
             onHide={() => setShow(false)}
             data-backdrop="static"
-          />
+          /> */}
         </div>
       </div>
     </div>

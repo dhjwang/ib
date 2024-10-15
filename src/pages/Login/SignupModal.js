@@ -13,7 +13,9 @@ const SignupModal = ({ show, onHide }) => {
   const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/users/";
 
   const handleSubmit = async () => {
-    const usernameCheck = await fetch(apiEndpoint + username);
+    const usernameCheck = await fetch(apiEndpoint + username, {
+      credentials: "include",
+    });
     const userCheckStatus = await usernameCheck.status;
     if (username.trim() === "") {
       setError("Enter a username");
@@ -26,6 +28,7 @@ const SignupModal = ({ show, onHide }) => {
     } else {
       const res = await fetch(apiEndpoint, {
         method: "POST",
+        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
