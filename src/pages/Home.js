@@ -112,10 +112,7 @@ const Home = () => {
           {players.length > 1 ? (
             <Button onclick={() => navigate("/scores")} name="Play!" />
           ) : (
-            <Button
-              onclick={() => setShow(true)}
-              name="Add more players to start!"
-            />
+            <Button onclick={() => setShow(true)} name="Add more players!" />
           )}
         </div>
         <AddPlayerModal

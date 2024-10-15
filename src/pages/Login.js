@@ -16,11 +16,12 @@ const Login = () => {
 
   const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/auth/";
 
-  // useEffect(() => {
-  //   if (isAuthorized) {
-  //     navigate("/lobbies");
-  //   }
-  // }, [isAuthorized]);
+  useEffect(() => {
+    // if (isAuthorized) {
+    // navigate("/lobbies");
+    // }
+    navigate("/home");
+  }, [isAuthorized]);
 
   // const checkLogin = async () => {
   //   if (username && password) {
@@ -92,11 +93,11 @@ const Login = () => {
             }}
             name="Guest"
           />
-          {/* <SignupModal
+          <SignupModal
             show={show}
             onHide={() => setShow(false)}
             data-backdrop="static"
-          /> */}
+          />
         </div>
       </div>
     </div>
