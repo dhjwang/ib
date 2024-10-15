@@ -79,14 +79,14 @@ const Menu = () => {
           >
             Rules
           </li>
-          <li
+          {/* <li
             onClick={() => {
               setPlayers([]);
               navigate("/");
             }}
           >
             Login
-          </li>
+          </li> */}
         </ul>
       )}
       <RulesModal
