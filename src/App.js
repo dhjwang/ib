@@ -10,7 +10,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="test">
+    <div>
       <PlayersProvider>
         <Router>
           <Routes>
