@@ -9,7 +9,7 @@ const PlayerScore = ({ name, score, id, updateScore }) => {
     <div className="user">
       <div className="usercontent" onClick={() => setShow(true)}>
         <div className="name">{name}</div>
-        <div>{score}</div>
+        <div className="score">{score}</div>
       </div>
       <Modal
         show={show}

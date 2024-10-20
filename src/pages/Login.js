@@ -4,56 +4,58 @@ import "./Login/Login.css";
 import SignupModal from "./Login/SignupModal.js";
 import Button from "../button.js";
 import "../App.css";
-import { useAuthorizedContext } from "../PlayersContext";
+import { PlayersContext } from "../PlayersContext";
+import { isAuthorized } from "../utils.js";
+import useAuth from "../useAuth.js";
 
 const Login = () => {
-  const [isAuthorized, setAuthorized] = useAuthorizedContext();
+  const { usercontext } = useContext(PlayersContext);
+  const [user, setUser] = usercontext;
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/auth/";
-
+  const apiEndpoint = "https://ib-api.onrender.com/api/auth/";
   useEffect(() => {
-    // if (isAuthorized) {
-    // navigate("/lobbies");
-    // }
-    navigate("/home");
-  }, [isAuthorized]);
+    if (isAuthorized()) {
+      navigate("/lobbies");
+    }
+  }, [user]);
 
-  // const checkLogin = async () => {
-  //   if (username && password) {
-  //     const res = await fetch(apiEndpoint, {
-  //       method: "POST",
-  //       credentials: "include",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ username: username, password: password }),
-  //     });
+  const checkLogin = async () => {
+    if (username && password) {
+      const res = await fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: username, password: password }),
+      });
 
-  //     const data = await res.status;
-  //     if (data === 200) {
-  //       setAuthorized(true);
-  //     } else if (data === 401) {
-  //       setError("Invalid username or password");
-  //     } else {
-  //       setError("An error occurred. Please restart the page.");
-  //     }
-  //   } else {
-  //     setError("Enter a username and password");
-  //   }
-  // };
+      const data = await res.status;
+      if (data === 200) {
+        const token = await res.json();
+        login(token);
+      } else if (data === 404 || 401) {
+        setError("Invalid username or password");
+      } else {
+        setError("An error occurred. Please restart the page.");
+      }
+    } else {
+      setError("Enter a username and password");
+    }
+  };
 
   return (
     <div className="wrapper">
       <div className="home">
         <div className="logo"></div>
         <div className="body" id="form-wrapper">
-          {/* <form className="login" onSubmit={checkLogin}>
+          <form className="login" onSubmit={checkLogin}>
             <div className="field">
               <div>Username</div>
               <input
@@ -82,13 +84,12 @@ const Login = () => {
               {error}
             </div>
             <button className="modalbtn">Login</button>
-          </form> */}
+          </form>
         </div>
         <div className="footer">
           <Button onclick={() => setShow(true)} name="Sign up" />
           <Button
             onclick={() => {
-              setAuthorized(false);
               navigate("/home");
             }}
             name="Guest"

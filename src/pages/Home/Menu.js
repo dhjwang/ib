@@ -1,30 +1,17 @@
 import React, { useContext, useState } from "react";
 import RulesModal from "./RulesModal";
-import { PlayersContext, useAuthorizedContext } from "../../PlayersContext";
+import { PlayersContext } from "../../PlayersContext";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../useAuth";
 
 const Menu = () => {
-  const { playercontext, lobbycontext } = useContext(PlayersContext);
-  const [isAuthorized, setAuthorized] = useAuthorizedContext();
+  const { playercontext, usercontext } = useContext(PlayersContext);
   const [players, setPlayers] = playercontext;
-  const [lobby, setLobby] = lobbycontext;
+  const [user, setUser] = usercontext;
   const [show, setShow] = useState(false);
   const [rulesShow, setRulesShow] = useState(false);
   const navigate = useNavigate();
-
-  const logoutEndpoint =
-    "https://ib-api.onrender.com/api/proxy/api/auth/logout";
-
-  const logoutSession = async () => {
-    const res = await fetch(logoutEndpoint, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  const { logout } = useAuth();
 
   return (
     <div
@@ -40,7 +27,7 @@ const Menu = () => {
       }}
     >
       Menu
-      {isAuthorized ? (
+      {user ? (
         <ul className="menu" style={{ display: show ? "flex" : "none" }}>
           <li
             onClick={() => {
@@ -58,12 +45,9 @@ const Menu = () => {
             Lobbies
           </li>
           <li
-            onClick={async () => {
-              await logoutSession();
-              await setAuthorized(false);
-              await navigate("/");
-              await setPlayers([]);
-              await setLobby();
+            onClick={() => {
+              logout();
+              navigate("/");
             }}
           >
             Logout
@@ -79,14 +63,14 @@ const Menu = () => {
           >
             Rules
           </li>
-          {/* <li
+          <li
             onClick={() => {
               setPlayers([]);
               navigate("/");
             }}
           >
             Login
-          </li> */}
+          </li>
         </ul>
       )}
       <RulesModal

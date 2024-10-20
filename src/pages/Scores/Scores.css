@@ -1,8 +1,13 @@
 .rounded {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   height: 5dvh;
   align-items: center;
+  background-color: rgb(113, 123, 182);
+  color: rgb(18, 29, 92);
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .roundHeader {
   font-size: 20px;
@@ -12,23 +17,24 @@
 
 .playerscore {
   width: 100%;
-  height: 78dvh;
+  height: 76dvh;
   display: grid;
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-rows: repeat(11, 1fr);
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
   place-items: center;
+  grid-column-gap: 0.3em;
+  padding-top: 1dvh;
+  padding-bottom: 1dvh;
 }
 
 .user {
-  height: 2.5em;
-  width: 80%;
+  display: flex;
+  height: calc(76dvh / 12);
+  width: 100%;
   background-color: rgb(51, 47, 47);
   color: rgb(175, 171, 171);
-  margin: 5px;
   border-radius: 10px;
-  padding-left: 5%;
-  padding-right: 5%;
   font-size: 20px;
 }
 
@@ -40,13 +46,16 @@
   width: 100%;
 }
 
+.score {
+  padding-right: 5px;
+}
 .reset {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(199, 55, 33);
   color: rgb(211, 211, 211);
-  height: 5dvh;
+  height: 4dvh;
   width: 20%;
   border-radius: 20px;
   font-size: 2dvh;

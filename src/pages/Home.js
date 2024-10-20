@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { PlayersContext, useAuthorizedContext } from "../PlayersContext.js";
+import { PlayersContext } from "../PlayersContext.js";
 import { useNavigate } from "react-router-dom";
 import "./Home/Home.css";
 import Player from "./Home/Player.js";
@@ -8,6 +8,7 @@ import RulesModal from "./Home/RulesModal.js";
 import Menu from "./Home/Menu.js";
 import Button from "../button.js";
 import "../App.css";
+import { isAuthorized } from "../utils.js";
 
 const Home = () => {
   const { playercontext, roundcontext, lobbycontext } =
@@ -18,31 +19,35 @@ const Home = () => {
   const [show, setShow] = useState(false);
   const [rulesShow, setRulesShow] = useState(false);
   const navigate = useNavigate();
-  const [isAuthorized, setAuthorized] = useAuthorizedContext();
   const [isLoading, setLoading] = useState(true);
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/scores/";
+  const apiEndpoint = "https://ib-api.onrender.com/api/scores/";
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
-    if (isAuthorized === false) {
+    if (!isAuthorized()) {
       let tmp = sessionStorage.getItem("sessionplayers");
       let tmpround = sessionStorage.getItem("round");
       if (tmp) {
         setPlayers(JSON.parse(tmp));
         setRound(Number(tmpround));
       }
-    } else if (isAuthorized === true && !lobby) {
-      navigate("/lobbies");
+    } else {
+      if (!lobby) {
+        navigate("/lobbies");
+      }
     }
     setLoading(false);
-  }, [isAuthorized]);
+  }, []);
 
   const removePlayer = async (id) => {
     setPlayers(players.filter((user) => user.score_id !== id));
-    if (isAuthorized) {
+    if (isAuthorized()) {
       await fetch(apiEndpoint + id, {
         method: "DELETE",
-        credentials: "include",
+        headers: {
+          Authorization: token,
+        },
       });
     } else {
       sessionStorage.setItem(
@@ -55,18 +60,20 @@ const Home = () => {
   const addPlayer = async (name) => {
     let data;
     setLoading(true);
-    if (isAuthorized) {
+    if (isAuthorized()) {
       await fetch(apiEndpoint, {
         method: "POST",
-        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: token,
         },
-        body: JSON.stringify({ player_name: name, lobby_id: lobby }),
+        body: JSON.stringify({ player_name: name, lobby_id: lobby.id }),
       });
-      const res = await fetch(apiEndpoint + lobby, {
-        credentials: "include",
+      const res = await fetch(apiEndpoint + lobby.id, {
+        headers: {
+          Authorization: token,
+        },
       });
       data = await res.json();
     } else {
@@ -85,6 +92,7 @@ const Home = () => {
       <div className="home">
         <div className="logo"></div>
         <div className="body" id="playertable">
+          <div className="title">{lobby ? lobby.name : "Guest"}</div>
           <div className="players">
             {!!players.length &&
               players.map((x, index) => {

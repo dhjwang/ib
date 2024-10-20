@@ -1,53 +1,50 @@
-import React, { useState } from "react";
-import { useAuthorizedContext } from "../../PlayersContext";
+import React, { useState, useContext } from "react";
+import useAuth from "../../useAuth";
 
 import "../Scores/Modal.css";
 
 const SignupModal = ({ show, onHide }) => {
-  const [isAuthorized, setAuthorized] = useAuthorizedContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
+  const { login } = useAuth();
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/users/";
+  const apiEndpoint = "https://ib-api.onrender.com/api/users/";
 
   const handleSubmit = async () => {
-    const usernameCheck = await fetch(apiEndpoint + username, {
-      credentials: "include",
-    });
-    const userCheckStatus = await usernameCheck.status;
     if (username.trim() === "") {
       setError("Enter a username");
-    } else if (userCheckStatus === 200) {
-      setError("Username already exists");
-    } else if (password !== password2) {
-      setError("Passwords do not match");
-    } else if (password.trim() === "") {
-      setError("Enter a password");
     } else {
-      const res = await fetch(apiEndpoint, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: username, password: password }),
-      });
-      const auth = await fetch(
-        "https://ib-api.onrender.com/api/proxy/api/auth/",
-        {
+      const usernameCheck = await fetch(apiEndpoint + username);
+      const userCheckStatus = await usernameCheck.status;
+
+      if (userCheckStatus === 200) {
+        setError("Username already exists");
+      } else if (password !== password2) {
+        setError("Passwords do not match");
+      } else if (password.trim() === "") {
+        setError("Enter a password");
+      } else {
+        const res = await fetch(apiEndpoint, {
           method: "POST",
-          credentials: "include",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ username: username, password: password }),
-        }
-      );
-      setAuthorized(true);
+        });
+        const auth = await fetch("https://ib-api.onrender.com/api/auth/", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username: username, password: password }),
+        });
+        const token = await auth.json();
+        login(token);
+      }
     }
   };
 

@@ -1,15 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
-import { PlayersContext, useAuthorizedContext } from "../PlayersContext";
+import { PlayersContext } from "../PlayersContext";
 import { useNavigate } from "react-router-dom";
 import AddPlayerModal from "./Home/AddPlayerModal.js";
 import Lobby from "./Lobbies/Lobby.js";
 import Button from "../button.js";
 import "../App.css";
+import { isAuthorized } from "../utils.js";
+import useAuth from "../useAuth.js";
 
 const Lobbies = () => {
-  const { playercontext, lobbycontext, roundcontext } =
+  const { playercontext, lobbycontext, roundcontext, usercontext } =
     useContext(PlayersContext);
-  const [isAuthorized, setAuthorized] = useAuthorizedContext();
+  const [user, setUser] = usercontext;
   const [players, setPlayers] = playercontext;
   const [lobby, setLobby] = lobbycontext;
   const [lobbies, setLobbies] = useState([]);
@@ -17,39 +19,28 @@ const Lobbies = () => {
   const [show, setShow] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/lobbies/";
-  const logoutEndpoint =
-    "https://ib-api.onrender.com/api/proxy/api/auth/logout";
-
-  const logoutSession = async () => {
-    const res = await fetch(logoutEndpoint, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  const apiEndpoint = "https://ib-api.onrender.com/api/lobbies/";
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
-    if (isAuthorized !== false) {
+    if (isAuthorized()) {
       const getdata = async () => {
         try {
           const res = await fetch(apiEndpoint, {
-            credentials: "include",
+            headers: { Authorization: token },
           });
           if (!res.ok) {
             throw new Error(res.statusText);
           }
           const data = await res.json();
-          setLobbies(data);
+          setUser(data.username);
+          setLobbies(data.lobbies);
           setLoading(false);
         } catch (err) {
           console.log("error");
           console.log(err.message);
-          // setAuthorized(false);
           // navigate("/");
         }
       };
@@ -57,73 +48,80 @@ const Lobbies = () => {
     } else {
       navigate("/");
     }
-  }, [isAuthorized]);
+  }, [user]);
 
   const addlobby = async (name) => {
     setLoading(true);
-    await fetch(apiEndpoint, {
+    const res = await fetch(apiEndpoint, {
       method: "POST",
-      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: token,
       },
       body: JSON.stringify({ lobby_name: name }),
     });
-    const res = await fetch(apiEndpoint, {
-      credentials: "include",
-    });
     const data = await res.json();
-    setLobbies(data);
+    setLobbies(data.lobbies);
     setLoading(false);
   };
 
-  const loadLobby = async (id, lobby_round) => {
-    const scores = "https://ib-api.onrender.com/api/proxy/api/scores/";
+  const loadLobby = async (id, lobby_round, lobby_name) => {
+    const scores = "https://ib-api.onrender.com/api/scores/";
     try {
       const res = await fetch(scores + id, {
-        credentials: "include",
+        headers: {
+          Authorization: token,
+        },
       });
       if (!res.ok) {
         throw new Error(res.statusText);
       }
       const data = await res.json();
-      setLobby(id);
+
+      setLobby({ id: id, name: lobby_name });
       setRound(lobby_round);
       setPlayers(data);
       navigate("/home");
     } catch (err) {
       console.log(err.message);
-      setAuthorized(false);
       navigate("/");
     }
   };
 
   const removeLobby = async (id) => {
     setLobbies(lobbies.filter((lobby) => lobby.lobby_id !== id));
-    await fetch(apiEndpoint + id, { method: "DELETE", credentials: "include" });
+    await fetch(apiEndpoint + id, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    });
   };
 
   return (
     <div className="wrapper">
       <div className="home">
         <div className="logo"></div>
-        <div className="body" id="lobbies">
-          {!!lobbies.length &&
-            lobbies.map((x, index) => {
-              return (
-                <Lobby
-                  key={index}
-                  name={x.lobby_name}
-                  id={x.lobby_id}
-                  rm={removeLobby}
-                  round={x.lobby_round}
-                  players={x.players}
-                  load={loadLobby}
-                />
-              );
-            })}
-          {isLoading && <>Loading...</>}
+        <div className="body">
+          <div className="title">{user} Lobbies</div>
+          <div id="lobbies">
+            {!!lobbies.length &&
+              lobbies.map((x, index) => {
+                return (
+                  <Lobby
+                    key={index}
+                    name={x.lobby_name}
+                    id={x.lobby_id}
+                    rm={removeLobby}
+                    round={x.lobby_round}
+                    players={x.players}
+                    load={loadLobby}
+                  />
+                );
+              })}
+            {isLoading && <>Loading...</>}
+          </div>
         </div>
 
         <AddPlayerModal
@@ -136,11 +134,8 @@ const Lobbies = () => {
 
         <div className="footer">
           <Button
-            onclick={async () => {
-              await logoutSession();
-              await setAuthorized(false);
-              await setPlayers([]);
-              await setLobby();
+            onclick={() => {
+              logout();
             }}
             name="Log out"
           />

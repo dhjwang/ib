@@ -28,7 +28,7 @@ const ScoresModal = ({ show, onHide }) => {
               return (
                 <div key={x.score_id} className="calloutcontent">
                   <div className="name">{x.player_name}</div>{" "}
-                  <div>{x.player_score}</div>
+                  <div className="score">{x.player_score}</div>
                 </div>
               );
             })}{" "}

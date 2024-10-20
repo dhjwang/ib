@@ -1,55 +1,22 @@
-import React, { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext } from "react";
 
 export const PlayersContext = createContext();
 
 export const PlayersProvider = (props) => {
   const [players, setPlayers] = useState([]);
   const [round, setRound] = useState(0);
-  const [isAuthorized, setAuthorized] = useState(null);
   const [lobby, setLobby] = useState();
+  const [user, setUser] = useState("");
   return (
     <PlayersContext.Provider
       value={{
         playercontext: [players, setPlayers],
         roundcontext: [round, setRound],
-        authorizedcontext: [isAuthorized, setAuthorized],
         lobbycontext: [lobby, setLobby],
+        usercontext: [user, setUser],
       }}
     >
       {props.children}
     </PlayersContext.Provider>
   );
-};
-
-const auth = "https://ib-api.onrender.com/api/proxy/api/auth/status";
-
-export const useAuthorizedContext = () => {
-  const { authorizedcontext } = useContext(PlayersContext);
-  const [isAuthorized, setAuthorized] = authorizedcontext;
-
-  const checkAuth = async () => {
-    console.log("called");
-    const res = await fetch(auth, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.status;
-    if (data === 200) {
-      setAuthorized(true);
-    } else {
-      setAuthorized(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isAuthorized === null) {
-      checkAuth();
-    }
-  }, []);
-
-  return authorizedcontext;
 };

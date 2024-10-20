@@ -147,15 +147,14 @@ const Battle = () => {
       <div className="home">
         <div className="logo"></div>
         <div className="body">
+          {players.length ? (
+            <div className="title">
+              Round {round + 1}: {game.title}
+            </div>
+          ) : (
+            <div className="title">Battle</div>
+          )}
           <div className="battle">
-            {players.length ? (
-              <h3>
-                Round {round + 1}: {game.title}
-              </h3>
-            ) : (
-              <h2>Battle</h2>
-            )}
-
             {game.c_hill ? (
               <div className="active-players">
                 <div className="A">
@@ -252,7 +251,10 @@ const Battle = () => {
                 ) : (
                   <CallOutModal
                     show={show}
-                    onHide={() => setShow(false)}
+                    onHide={() => {
+                      setShow(false);
+                      navigate("/scores");
+                    }}
                     id={a}
                     chooseB={chooseB}
                     data-backdrop="static"

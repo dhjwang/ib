@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { PlayersContext } from "../../PlayersContext";
 import "../Scores/Modal.css";
-import { Link } from "react-router-dom";
 
 const CallOutModal = ({ show, onHide, id, chooseB }) => {
   const { playercontext } = useContext(PlayersContext);
@@ -36,14 +35,14 @@ const CallOutModal = ({ show, onHide, id, chooseB }) => {
                   onClick={() => chooseB(x.score_id)}
                 >
                   <div className="name">{x.player_name}</div>{" "}
-                  <div>{x.player_score}</div>
+                  <div className="score">{x.player_score}</div>
                 </div>
               );
             })}{" "}
         </div>
-        <Link className="modalbtn" to="/scores" onClick={onHide}>
+        <button className="modalbtn" onClick={onHide}>
           Cancel
-        </Link>
+        </button>
       </div>
     </div>
   );

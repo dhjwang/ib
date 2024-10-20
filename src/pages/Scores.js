@@ -1,21 +1,22 @@
 import React, { useContext, useEffect } from "react";
-import { PlayersContext, useAuthorizedContext } from "../PlayersContext.js";
+import { PlayersContext } from "../PlayersContext.js";
 import PlayerScore from "./Scores/PlayerScore.js";
 import { useNavigate } from "react-router-dom";
 import "./Scores/Scores.css";
 import Button from "../button.js";
 import "../App.css";
+import { isAuthorized } from "../utils.js";
 
 const Scores = () => {
   const { playercontext, roundcontext, lobbycontext } =
     useContext(PlayersContext);
   const [players, setPlayers] = playercontext;
   const [round, setRound] = roundcontext;
-  const [isAuthorized, setAuthorized] = useAuthorizedContext();
   const [lobby, setLobby] = lobbycontext;
   const navigate = useNavigate();
 
-  const apiEndpoint = "https://ib-api.onrender.com/api/proxy/api/scores/";
+  const apiEndpoint = "https://ib-api.onrender.com/api/scores/";
+  const token = sessionStorage.getItem("token");
 
   const resetScores = async (x) => {
     if (players.length) {
@@ -24,32 +25,29 @@ const Scores = () => {
       });
       setPlayers([...players]);
       setRound(0);
-      if (isAuthorized) {
-        await fetch(apiEndpoint + `?lobby=${lobby}`, {
+      if (isAuthorized()) {
+        await fetch(apiEndpoint + `?lobby=${lobby.id}`, {
           method: "PUT",
-          credentials: "include",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: token,
           },
           body: JSON.stringify({
             player_score: 0,
           }),
         });
-        await fetch(
-          "https://ib-api.onrender.com/api/proxy/api/lobbies/" + lobby,
-          {
-            method: "PUT",
-            credentials: "include",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              lobby_round: 0,
-            }),
-          }
-        );
+        await fetch("https://ib-api.onrender.com/api/lobbies/" + lobby.id, {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            lobby_round: 0,
+          }),
+        });
       } else {
         sessionStorage.setItem("sessionplayers", JSON.stringify(players));
         sessionStorage.setItem("round", 0);
@@ -67,17 +65,19 @@ const Scores = () => {
   }
 
   useEffect(() => {
-    if (isAuthorized === false) {
+    if (!isAuthorized()) {
       let tmp = sessionStorage.getItem("sessionplayers");
       let tmpround = sessionStorage.getItem("round");
       if (tmp) {
         setPlayers(JSON.parse(tmp));
         setRound(Number(tmpround));
       }
-    } else if (isAuthorized === true && !lobby) {
-      navigate("/lobbies");
+    } else {
+      if (!lobby) {
+        navigate("/lobbies");
+      }
     }
-  }, [isAuthorized]);
+  }, []);
 
   const updateScore = async (id, add) => {
     if (add) {
@@ -86,13 +86,13 @@ const Scores = () => {
       players.find((user) => user.score_id === id).player_score--;
     }
     setPlayers([...players]);
-    if (isAuthorized) {
+    if (isAuthorized()) {
       await fetch(apiEndpoint + id, {
         method: "PUT",
-        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: token,
         },
         body: JSON.stringify({
           player_score: players.find((user) => user.score_id === id)
