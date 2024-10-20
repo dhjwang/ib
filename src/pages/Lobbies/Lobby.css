@@ -39,6 +39,7 @@
   justify-content: space-between;
   color: rgb(155, 204, 223);
   width: 66px;
+  padding-left: 5px;
 }
 .lobby-name {
   white-space: nowrap;
