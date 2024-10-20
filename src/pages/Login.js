@@ -25,8 +25,7 @@ const Login = () => {
     }
   }, [user]);
 
-  const checkLogin = async (x) => {
-    x.preventDefault();
+  const checkLogin = async () => {
     if (username && password) {
       const res = await fetch(apiEndpoint, {
         method: "POST",
@@ -84,7 +83,9 @@ const Login = () => {
             >
               {error}
             </div>
-            <button className="modalbtn">Login</button>
+            <button className="modalbtn" type="button">
+              Login
+            </button>
           </form>
         </div>
         <div className="footer">

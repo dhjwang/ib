@@ -12,8 +12,7 @@ const AddPlayerModal = ({ show, onHide, added, lobbies }) => {
     setSearch(x.target.value);
   };
 
-  const addPlayer = (x) => {
-    x.preventDefault();
+  const addPlayer = () => {
     if (search.trim() === "") {
       lobbies ? setError("Enter a lobby.") : setError("Enter a user.");
     } else {
@@ -70,7 +69,7 @@ const AddPlayerModal = ({ show, onHide, added, lobbies }) => {
           </div>
           <button className="modalbtn">Add</button>
         </form>
-        <button className="modalbtn" onClick={close}>
+        <button className="modalbtn" type="button" onClick={close}>
           Close
         </button>
       </div>
