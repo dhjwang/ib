@@ -98,7 +98,7 @@ const SignupModal = ({ show, onHide }) => {
           >
             {error}
           </div>
-          <button className="modalbtn" onClick={handleSubmit}>
+          <button className="modalbtn" type="button" onClick={handleSubmit}>
             Sign Up
           </button>
         </form>

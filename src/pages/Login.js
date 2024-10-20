@@ -25,7 +25,8 @@ const Login = () => {
     }
   }, [user]);
 
-  const checkLogin = async () => {
+  const checkLogin = async (x) => {
+    x.preventDefault();
     if (username && password) {
       const res = await fetch(apiEndpoint, {
         method: "POST",
