@@ -12,38 +12,43 @@ const SignupModal = ({ show, onHide }) => {
 
   const apiEndpoint = "https://ib-api.onrender.com/api/users/";
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (x) => {
+    x.preventDefault();
     if (username.trim() === "") {
       setError("Enter a username");
     } else {
-      const usernameCheck = await fetch(apiEndpoint + username);
-      const userCheckStatus = await usernameCheck.status;
+      try {
+        const usernameCheck = await fetch(apiEndpoint + username);
+        const userCheckStatus = await usernameCheck.status;
 
-      if (userCheckStatus === 200) {
-        setError("Username already exists");
-      } else if (password !== password2) {
-        setError("Passwords do not match");
-      } else if (password.trim() === "") {
-        setError("Enter a password");
-      } else {
-        const res = await fetch(apiEndpoint, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username: username, password: password }),
-        });
-        const auth = await fetch("https://ib-api.onrender.com/api/auth/", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username: username, password: password }),
-        });
-        const token = await auth.json();
-        login(token);
+        if (userCheckStatus === 200) {
+          setError("Username already exists");
+        } else if (password !== password2) {
+          setError("Passwords do not match");
+        } else if (password.trim() === "") {
+          setError("Enter a password");
+        } else {
+          const res = await fetch(apiEndpoint, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username: username, password: password }),
+          });
+          const auth = await fetch("https://ib-api.onrender.com/api/auth/", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username: username, password: password }),
+          });
+          const token = await auth.json();
+          login(token);
+        }
+      } catch (err) {
+        setError("An error occured. Please restart the page.");
       }
     }
   };
@@ -60,7 +65,7 @@ const SignupModal = ({ show, onHide }) => {
   return (
     <div className="modal_bg">
       <div className="modal_content" id="signup">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="field">
             <div>Username</div>
             <input
@@ -98,13 +103,13 @@ const SignupModal = ({ show, onHide }) => {
           >
             {error}
           </div>
-          <button className="modalbtn" type="button" onClick={handleSubmit}>
-            Sign Up
-          </button>
+          <div className="btn-wrapper">
+            <button className="modalbtn" type="button" onClick={close}>
+              Close
+            </button>
+            <button className="modalbtn">Sign Up</button>
+          </div>
         </form>
-        <button className="modalbtn" onClick={close}>
-          Close
-        </button>
       </div>
     </div>
   );

@@ -25,24 +25,29 @@ const Login = () => {
     }
   }, [user]);
 
-  const checkLogin = async () => {
+  const checkLogin = async (x) => {
+    x.preventDefault();
     if (username && password) {
-      const res = await fetch(apiEndpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: username, password: password }),
-      });
+      try {
+        const res = await fetch(apiEndpoint, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username: username, password: password }),
+        });
 
-      const data = await res.status;
-      if (data === 200) {
-        const token = await res.json();
-        login(token);
-      } else if (data === 404 || 401) {
-        setError("Invalid username or password");
-      } else {
+        const data = await res.status;
+        if (data === 200) {
+          const token = await res.json();
+          login(token);
+        } else if (data === 404 || 401) {
+          setError("Invalid username or password");
+        } else {
+          setError("An error occurred. Please restart the page.");
+        }
+      } catch (err) {
         setError("An error occurred. Please restart the page.");
       }
     } else {
@@ -83,9 +88,7 @@ const Login = () => {
             >
               {error}
             </div>
-            <button className="modalbtn" type="button">
-              Login
-            </button>
+            <button className="modalbtn">Login</button>
           </form>
         </div>
         <div className="footer">
