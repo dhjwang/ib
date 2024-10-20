@@ -113,14 +113,12 @@ form {
   height: auto;
 }
 
-#rules > :not(.tips) {
+#rules > * {
   margin: 15px;
-  text-align: left;
 }
 
-.tips {
-  margin: 15px;
-  text-align: center;
+p {
+  text-align: left;
 }
 
 ul {
