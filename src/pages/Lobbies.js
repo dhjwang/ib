@@ -35,10 +35,10 @@ const Lobbies = () => {
           if (!res.ok) {
             throw new Error(res.statusText);
           }
+          setLoading(false);
           const data = await res.json();
-          await setLoading(false);
-          await setUser(data.username);
-          await setLobbies(data.lobbies);
+          setUser(data.username);
+          setLobbies(data.lobbies);
         } catch (err) {
           setLoading(false);
           console.log("error");
