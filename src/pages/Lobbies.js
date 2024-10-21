@@ -36,14 +36,15 @@ const Lobbies = () => {
             throw new Error(res.statusText);
           }
           const data = await res.json();
+          setLoading(false);
           setUser(data.username);
           setLobbies(data.lobbies);
         } catch (err) {
+          setLoading(false);
           console.log("error");
           console.log(err.message);
           // navigate("/");
         }
-        setLoading(false);
       };
       getdata();
     } else {
@@ -63,8 +64,8 @@ const Lobbies = () => {
       body: JSON.stringify({ lobby_name: name }),
     });
     const data = await res.json();
-    setLobbies(data.lobbies);
     setLoading(false);
+    setLobbies(data.lobbies);
   };
 
   const loadLobby = async (id, lobby_round, lobby_name) => {
