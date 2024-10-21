@@ -10,7 +10,7 @@ export default function useAuth() {
 
   const login = (token) => {
     const expiresAt = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-    setUser(token.user.username);
+    setUser(token.user);
     sessionStorage.setItem("token", token.token);
     sessionStorage.setItem("expiresAt", JSON.stringify(expiresAt));
   };
