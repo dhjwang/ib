@@ -14,7 +14,7 @@ const Menu = () => {
   const { logout } = useAuth();
 
   return (
-    <div
+    <button
       className="menuBtn"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -81,7 +81,7 @@ const Menu = () => {
         }}
         data-backdrop="static"
       ></RulesModal>
-    </div>
+    </button>
   );
 };
 

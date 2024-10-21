@@ -35,22 +35,21 @@ const Lobbies = () => {
           if (!res.ok) {
             throw new Error(res.statusText);
           }
-          setLoading(false);
           const data = await res.json();
           setUser(data.username);
           setLobbies(data.lobbies);
         } catch (err) {
-          setLoading(false);
           console.log("error");
           console.log(err.message);
           // navigate("/");
         }
+        setLoading(false);
       };
       getdata();
     } else {
       navigate("/");
     }
-  }, [user]);
+  }, []);
 
   const addlobby = async (name) => {
     setLoading(true);
@@ -146,6 +145,7 @@ const Lobbies = () => {
           <Button
             onclick={() => {
               logout();
+              navigate("/");
             }}
             name="Log out"
           />
