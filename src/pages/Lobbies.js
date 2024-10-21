@@ -17,7 +17,7 @@ const Lobbies = () => {
   const [lobbies, setLobbies] = useState([]);
   const [round, setRound] = roundcontext;
   const [show, setShow] = useState(false);
-  const [isLoading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { logout } = useAuth();
 
@@ -27,6 +27,7 @@ const Lobbies = () => {
   useEffect(() => {
     if (isAuthorized()) {
       const getdata = async () => {
+        setLoading(true);
         try {
           const res = await fetch(apiEndpoint, {
             headers: { Authorization: token },
@@ -37,12 +38,12 @@ const Lobbies = () => {
           const data = await res.json();
           setUser(data.username);
           setLobbies(data.lobbies);
-          setLoading(false);
         } catch (err) {
           console.log("error");
           console.log(err.message);
           // navigate("/");
         }
+        setLoading(false);
       };
       getdata();
     } else {
@@ -120,8 +121,10 @@ const Lobbies = () => {
                   />
                 );
               })}
-            {isLoading && <>Loading...</>}
-            {!isLoading && !lobbies.length && (
+            {loading && <>Loading...</>}
+            {loading && <div className="loading"></div>}
+
+            {!loading && !lobbies.length && (
               <div className="note">Add a lobby to get started.</div>
             )}
           </div>

@@ -48,7 +48,7 @@ const SignupModal = ({ show, onHide }) => {
           login(token);
         }
       } catch (err) {
-        setError("An error occured. Please restart the page.");
+        setError("An error occured. Please try again.");
       }
     }
   };

@@ -19,7 +19,7 @@ const Home = () => {
   const [show, setShow] = useState(false);
   const [rulesShow, setRulesShow] = useState(false);
   const navigate = useNavigate();
-  const [isLoading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const apiEndpoint = "https://ib-api.onrender.com/api/scores/";
   const token = sessionStorage.getItem("token");
@@ -37,7 +37,6 @@ const Home = () => {
         navigate("/lobbies");
       }
     }
-    setLoading(false);
   }, []);
 
   const removePlayer = async (id) => {
@@ -59,8 +58,8 @@ const Home = () => {
 
   const addPlayer = async (name) => {
     let data;
-    setLoading(true);
     if (isAuthorized()) {
+      setLoading(true);
       await fetch(apiEndpoint, {
         method: "POST",
         headers: {
@@ -76,6 +75,7 @@ const Home = () => {
         },
       });
       data = await res.json();
+      setLoading(false);
     } else {
       const ids = new Date();
       data = players.concat([
@@ -84,7 +84,6 @@ const Home = () => {
       sessionStorage.setItem("sessionplayers", JSON.stringify(data));
     }
     setPlayers(data);
-    setLoading(false);
   };
 
   return (
@@ -105,7 +104,8 @@ const Home = () => {
                   />
                 );
               })}
-            {isLoading && <>Loading...</>}
+            {loading && <>Loading...</>}
+            {loading && <div className="loading"></div>}
           </div>
           <div className="addplayer" onClick={() => setShow(true)}></div>
         </div>

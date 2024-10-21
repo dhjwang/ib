@@ -17,6 +17,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const apiEndpoint = "https://ib-api.onrender.com/api/auth/";
   useEffect(() => {
@@ -29,6 +30,7 @@ const Login = () => {
     x.preventDefault();
     if (username && password) {
       try {
+        setLoading(true);
         const res = await fetch(apiEndpoint, {
           method: "POST",
           headers: {
@@ -45,11 +47,12 @@ const Login = () => {
         } else if (data === 404 || 401) {
           setError("Invalid username or password");
         } else {
-          setError("An error occurred. Please restart the page.");
+          setError("An error occurred. Please try again.");
         }
       } catch (err) {
-        setError("An error occurred. Please restart the page.");
+        setError("An error occurred. Please try again.");
       }
+      setLoading(false);
     } else {
       setError("Enter a username and password");
     }
@@ -88,6 +91,7 @@ const Login = () => {
             >
               {error}
             </div>
+            {loading && <div className="loading"></div>}
             <button className="modalbtn">Login</button>
           </form>
         </div>
