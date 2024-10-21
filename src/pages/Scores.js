@@ -144,7 +144,7 @@ const Scores = () => {
           ) : (
             <Button
               onclick={() => navigate("/home")}
-              name="Add more players to start!"
+              name="Add more players!"
             />
           )}
         </div>
