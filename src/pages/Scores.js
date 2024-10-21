@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PlayersContext } from "../PlayersContext.js";
 import PlayerScore from "./Scores/PlayerScore.js";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const Scores = () => {
   const [round, setRound] = roundcontext;
   const [lobby, setLobby] = lobbycontext;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const apiEndpoint = "https://ib-api.onrender.com/api/scores/";
   const token = sessionStorage.getItem("token");
@@ -26,6 +27,7 @@ const Scores = () => {
       setPlayers([...players]);
       setRound(0);
       if (isAuthorized()) {
+        setLoading(true);
         await fetch(apiEndpoint + `?lobby=${lobby.id}`, {
           method: "PUT",
           headers: {
@@ -48,6 +50,7 @@ const Scores = () => {
             lobby_round: 0,
           }),
         });
+        setLoading(false);
       } else {
         sessionStorage.setItem("sessionplayers", JSON.stringify(players));
         sessionStorage.setItem("round", 0);
@@ -87,6 +90,7 @@ const Scores = () => {
     }
     setPlayers([...players]);
     if (isAuthorized()) {
+      setLoading(true);
       await fetch(apiEndpoint + id, {
         method: "PUT",
         headers: {
@@ -99,6 +103,7 @@ const Scores = () => {
             .player_score,
         }),
       });
+      setLoading(false);
     } else {
       sessionStorage.setItem("sessionplayers", JSON.stringify(players));
     }
@@ -137,6 +142,8 @@ const Scores = () => {
                 })}
           </div>
         </div>
+        {loading && <div className="loading"></div>}
+
         <div className="footer">
           <Button onclick={() => navigate("/home")} name="Home" />
           {players.length > 1 ? (

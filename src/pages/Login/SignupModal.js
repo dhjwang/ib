@@ -9,6 +9,7 @@ const SignupModal = ({ show, onHide }) => {
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
   const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const apiEndpoint = "https://ib-api.onrender.com/api/users/";
 
@@ -18,6 +19,7 @@ const SignupModal = ({ show, onHide }) => {
       setError("Enter a username");
     } else {
       try {
+        setLoading(true);
         const usernameCheck = await fetch(apiEndpoint + username);
         const userCheckStatus = await usernameCheck.status;
 
@@ -51,6 +53,7 @@ const SignupModal = ({ show, onHide }) => {
         setError("An error occured. Please try again.");
       }
     }
+    setLoading(false);
   };
 
   const close = () => {
@@ -110,6 +113,7 @@ const SignupModal = ({ show, onHide }) => {
             <button className="modalbtn">Sign Up</button>
           </div>
         </form>
+        {loading && <div className="loading"></div>}
       </div>
     </div>
   );

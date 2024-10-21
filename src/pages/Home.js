@@ -42,12 +42,14 @@ const Home = () => {
   const removePlayer = async (id) => {
     setPlayers(players.filter((user) => user.score_id !== id));
     if (isAuthorized()) {
+      setLoading(true);
       await fetch(apiEndpoint + id, {
         method: "DELETE",
         headers: {
           Authorization: token,
         },
       });
+      setLoading(false);
     } else {
       sessionStorage.setItem(
         "sessionplayers",

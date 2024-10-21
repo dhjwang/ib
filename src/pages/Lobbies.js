@@ -70,6 +70,7 @@ const Lobbies = () => {
   const loadLobby = async (id, lobby_round, lobby_name) => {
     const scores = "https://ib-api.onrender.com/api/scores/";
     try {
+      setLoading(true);
       const res = await fetch(scores + id, {
         headers: {
           Authorization: token,
@@ -91,6 +92,7 @@ const Lobbies = () => {
   };
 
   const removeLobby = async (id) => {
+    setLoading(true);
     setLobbies(lobbies.filter((lobby) => lobby.lobby_id !== id));
     await fetch(apiEndpoint + id, {
       method: "DELETE",
@@ -98,6 +100,7 @@ const Lobbies = () => {
         Authorization: token,
       },
     });
+    setLoading(false);
   };
 
   return (
