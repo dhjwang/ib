@@ -108,7 +108,7 @@ const Lobbies = () => {
       <div className="home">
         <div className="logo"></div>
         <div className="body">
-          <div className="title">{user} Lobbies</div>
+          <div className="title">{user.toUpperCase()} Lobbies</div>
           <div id="lobbies">
             {!!lobbies.length &&
               lobbies.map((x, index) => {

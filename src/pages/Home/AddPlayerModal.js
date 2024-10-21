@@ -18,23 +18,27 @@ const AddPlayerModal = ({ show, onHide, added, lobbies }) => {
       lobbies ? setError("Enter a lobby.") : setError("Enter a user.");
     } else {
       if (lobbies) {
-        if (lobbies.some((user) => user.lobby_name.trim() === search.trim())) {
-          setError(
-            `Lobby ${search.trim()} already exists. Enter another name.`
-          );
+        if (
+          lobbies.some(
+            (user) => user.lobby_name === search.replace(/\s{2,}/g, " ").trim()
+          )
+        ) {
+          setError(`Lobby ${search} already exists. Enter another name.`);
         } else {
-          added(search);
+          added(search.replace(/\s{2,}/g, " ").trim());
           setSearch("");
           setError("");
           onHide();
         }
       } else {
-        if (players.some((user) => user.player_name.trim() === search.trim())) {
-          setError(
-            `Player ${search.trim()} is already in lobby. Enter another name.`
-          );
+        if (
+          players.some(
+            (user) => user.player_name === search.replace(/\s{2,}/g, " ").trim()
+          )
+        ) {
+          setError(`Player ${search} is already in lobby. Enter another name.`);
         } else {
-          added(search);
+          added(search.replace(/\s{2,}/g, " ").trim());
           setSearch("");
           setError("");
           onHide();
