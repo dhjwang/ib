@@ -106,7 +106,7 @@ const Lobbies = () => {
         <div className="body">
           <div className="title">{user} Lobbies</div>
           <div id="lobbies">
-            {!!lobbies.length ? (
+            {!!lobbies.length &&
               lobbies.map((x, index) => {
                 return (
                   <Lobby
@@ -119,11 +119,11 @@ const Lobbies = () => {
                     load={loadLobby}
                   />
                 );
-              })
-            ) : (
-              <div className="title">Add a lobby to get started.</div>
-            )}
+              })}
             {isLoading && <>Loading...</>}
+            {!isLoading && !lobbies.length && (
+              <div className="note">Add a lobby to get started.</div>
+            )}
           </div>
         </div>
 
