@@ -74,7 +74,7 @@ const SignupModal = ({ show, onHide }) => {
             <input
               type="text"
               placeholder="Username"
-              maxLength="15"
+              maxLength="20"
               value={username}
               onChange={(x) => setUsername(x.target.value)}
             ></input>
@@ -84,7 +84,7 @@ const SignupModal = ({ show, onHide }) => {
             <input
               type="password"
               placeholder="Password"
-              maxLength="15"
+              minLength="8"
               value={password}
               onChange={(x) => setPassword(x.target.value)}
             ></input>
@@ -94,7 +94,7 @@ const SignupModal = ({ show, onHide }) => {
             <input
               type="password"
               placeholder="Password"
-              maxLength="15"
+              minLength="8"
               value={password2}
               onChange={(x) => setPassword2(x.target.value)}
             ></input>

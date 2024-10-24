@@ -116,7 +116,7 @@ const Home = () => {
           <RulesModal
             show={rulesShow}
             onHide={() => setRulesShow(false)}
-            data-backdrop="static"
+            // data-backdrop="static"
           ></RulesModal>
 
           {players.length > 1 ? (
@@ -129,7 +129,7 @@ const Home = () => {
           show={show}
           onHide={() => setShow(false)}
           added={addPlayer}
-          data-backdrop="static"
+          // data-backdrop="static"
         ></AddPlayerModal>
       </div>
     </div>

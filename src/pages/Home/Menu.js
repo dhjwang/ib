@@ -79,7 +79,7 @@ const Menu = () => {
           setRulesShow(false);
           setShow(false);
         }}
-        data-backdrop="static"
+        // data-backdrop="static"
       ></RulesModal>
     </button>
   );

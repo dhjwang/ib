@@ -257,7 +257,7 @@ const Battle = () => {
                     }}
                     id={a}
                     chooseB={chooseB}
-                    data-backdrop="static"
+                    // data-backdrop="static"
                   ></CallOutModal>
                 )}
               </div>
@@ -274,7 +274,7 @@ const Battle = () => {
           <ScoresModal
             show={showScores}
             onHide={() => setShowScores(false)}
-            data-backdrop="static"
+            // data-backdrop="static"
           ></ScoresModal>
         </div>
       </div>

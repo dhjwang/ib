@@ -138,7 +138,7 @@ const Lobbies = () => {
           onHide={() => setShow(false)}
           added={addlobby}
           lobbies={lobbies}
-          data-backdrop="static"
+          // data-backdrop="static"
         ></AddPlayerModal>
 
         <div className="footer">
