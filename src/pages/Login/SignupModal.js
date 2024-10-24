@@ -74,7 +74,7 @@ const SignupModal = ({ show, onHide }) => {
             <input
               type="text"
               placeholder="Username"
-              maxLength="20"
+              maxLength="15"
               value={username}
               onChange={(x) => setUsername(x.target.value)}
             ></input>

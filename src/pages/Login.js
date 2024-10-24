@@ -69,7 +69,7 @@ const Login = () => {
               <input
                 type="text"
                 placeholder="Username"
-                maxLength="20"
+                maxLength="15"
                 value={username}
                 onChange={(x) => setUsername(x.target.value)}
               ></input>
@@ -79,7 +79,6 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Password"
-                minLength="8"
                 value={password}
                 onChange={(x) => setPassword(x.target.value)}
               ></input>
