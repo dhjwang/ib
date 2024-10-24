@@ -102,11 +102,7 @@ const Login = () => {
             }}
             name="Guest"
           />
-          <SignupModal
-            show={show}
-            onHide={() => setShow(false)}
-            // data-backdrop="static"
-          />
+          <SignupModal show={show} onHide={() => setShow(false)} />
         </div>
       </div>
     </div>

@@ -1,15 +1,13 @@
 import React, { useContext, useState } from "react";
-import RulesModal from "./RulesModal";
 import { PlayersContext } from "../../PlayersContext";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../useAuth";
 
-const Menu = () => {
+const Menu = ({ setRulesShow }) => {
   const { playercontext, usercontext } = useContext(PlayersContext);
   const [players, setPlayers] = playercontext;
   const [user, setUser] = usercontext;
   const [show, setShow] = useState(false);
-  const [rulesShow, setRulesShow] = useState(false);
   const navigate = useNavigate();
   const { logout } = useAuth();
 
@@ -73,14 +71,6 @@ const Menu = () => {
           </li>
         </ul>
       )}
-      <RulesModal
-        show={rulesShow}
-        onHide={() => {
-          setRulesShow(false);
-          setShow(false);
-        }}
-        // data-backdrop="static"
-      ></RulesModal>
     </button>
   );
 };

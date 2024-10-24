@@ -112,12 +112,7 @@ const Home = () => {
           <div className="addplayer" onClick={() => setShow(true)}></div>
         </div>
         <div className="footer">
-          <Menu />
-          <RulesModal
-            show={rulesShow}
-            onHide={() => setRulesShow(false)}
-            // data-backdrop="static"
-          ></RulesModal>
+          <Menu setRulesShow={setRulesShow} />
 
           {players.length > 1 ? (
             <Button onclick={() => navigate("/scores")} name="Play!" />
@@ -125,11 +120,14 @@ const Home = () => {
             <Button onclick={() => setShow(true)} name="Add more players!" />
           )}
         </div>
+        <RulesModal
+          show={rulesShow}
+          onHide={() => setRulesShow(false)}
+        ></RulesModal>
         <AddPlayerModal
           show={show}
           onHide={() => setShow(false)}
           added={addPlayer}
-          // data-backdrop="static"
         ></AddPlayerModal>
       </div>
     </div>

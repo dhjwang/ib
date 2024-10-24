@@ -47,7 +47,7 @@
 
 .loading {
   background-color: rgba(0, 0, 0, 0.1);
-  position: fixed;
+  position: absolute;
   z-index: 1;
   height: 100%;
   width: 100%;
