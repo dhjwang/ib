@@ -3,8 +3,9 @@ import { PlayersContext } from "../../PlayersContext";
 import "../Scores/Modal.css";
 
 const ScoresModal = ({ show, onHide }) => {
-  const { playercontext } = useContext(PlayersContext);
+  const { playercontext, benchcontext } = useContext(PlayersContext);
   const [players, setPlayers] = playercontext;
+  const [bench, setBench] = benchcontext;
 
   function sorter(x, y) {
     if (x.player_score < y.player_score) {
@@ -23,6 +24,7 @@ const ScoresModal = ({ show, onHide }) => {
         <div className="modal_active_scores">
           {players
             .slice()
+            .filter((plyr) => !bench.includes(plyr.score_id))
             .sort(sorter)
             .map((x) => {
               return (
@@ -31,7 +33,25 @@ const ScoresModal = ({ show, onHide }) => {
                   <div className="score">{x.player_score}</div>
                 </div>
               );
-            })}{" "}
+            })}
+          {players
+            .slice()
+            .filter((plyr) => bench.includes(plyr.score_id))
+            .sort(sorter)
+            .map((x) => {
+              return (
+                <div
+                  key={x.score_id}
+                  className="calloutcontent"
+                  style={{
+                    backgroundColor: "rgb(100, 100, 120) ",
+                  }}
+                >
+                  <div className="name">{x.player_name}</div>{" "}
+                  <div className="score">{x.player_score}</div>
+                </div>
+              );
+            })}
         </div>
         <div className="modalbtn" onClick={onHide}>
           Back

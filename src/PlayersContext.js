@@ -7,6 +7,7 @@ export const PlayersProvider = (props) => {
   const [round, setRound] = useState(0);
   const [lobby, setLobby] = useState();
   const [user, setUser] = useState("");
+  const [bench, setBench] = useState([]);
   return (
     <PlayersContext.Provider
       value={{
@@ -14,6 +15,7 @@ export const PlayersProvider = (props) => {
         roundcontext: [round, setRound],
         lobbycontext: [lobby, setLobby],
         usercontext: [user, setUser],
+        benchcontext: [bench, setBench],
       }}
     >
       {props.children}

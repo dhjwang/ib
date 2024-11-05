@@ -3,7 +3,7 @@ import { PlayersContext } from "../../PlayersContext";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../useAuth";
 
-const Menu = ({ setRulesShow }) => {
+const Menu = ({ setRulesShow, setManagingBench, resetScores }) => {
   const { playercontext, usercontext } = useContext(PlayersContext);
   const [players, setPlayers] = playercontext;
   const [user, setUser] = usercontext;
@@ -25,42 +25,54 @@ const Menu = ({ setRulesShow }) => {
       }}
     >
       Menu
-      {user ? (
-        <ul className="menu" style={{ display: show ? "flex" : "none" }}>
-          <li
-            onClick={() => {
-              setShow(false);
-              setRulesShow(true);
-            }}
-          >
-            Rules
-          </li>
-          <li
-            onClick={() => {
-              navigate("/lobbies");
-            }}
-          >
-            Lobbies
-          </li>
-          <li
-            onClick={() => {
-              logout();
-              navigate("/");
-            }}
-          >
-            Logout
-          </li>
-        </ul>
-      ) : (
-        <ul className="menu" style={{ display: show ? "flex" : "none" }}>
-          <li
-            onClick={() => {
-              setShow(false);
-              setRulesShow(true);
-            }}
-          >
-            Rules
-          </li>
+      <ul className="menu" style={{ display: show ? "flex" : "none" }}>
+        {!!resetScores && (
+          <>
+            <li
+              onClick={() => {
+                setShow(false);
+                resetScores();
+              }}
+            >
+              Reset
+            </li>
+            <li
+              onClick={() => {
+                setShow(false);
+                setManagingBench(true);
+              }}
+            >
+              Bench
+            </li>
+            <li
+              onClick={() => {
+                navigate("/home");
+              }}
+            >
+              Home
+            </li>
+          </>
+        )}
+
+        {user ? (
+          <>
+            <li
+              onClick={() => {
+                navigate("/lobbies");
+              }}
+            >
+              Lobbies
+            </li>
+            <li
+              onClick={() => {
+                logout();
+                navigate("/");
+              }}
+            >
+              Logout
+            </li>
+          </>
+        ) : (
           <li
             onClick={() => {
               setPlayers([]);
@@ -69,8 +81,16 @@ const Menu = ({ setRulesShow }) => {
           >
             Login
           </li>
-        </ul>
-      )}
+        )}
+        <li
+          onClick={() => {
+            setShow(false);
+            setRulesShow(true);
+          }}
+        >
+          Rules
+        </li>
+      </ul>
     </button>
   );
 };

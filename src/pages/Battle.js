@@ -10,8 +10,10 @@ import Button from "../button.js";
 import "../App.css";
 
 const Battle = () => {
-  const { playercontext, roundcontext } = useContext(PlayersContext);
+  const { playercontext, roundcontext, benchcontext } =
+    useContext(PlayersContext);
   const [players, setPlayers] = playercontext;
+  const [bench, setBench] = benchcontext;
   const [round, setRound] = roundcontext;
   const [game, setGame] = useState("");
   const [a, setA] = useState();
@@ -30,18 +32,25 @@ const Battle = () => {
     setLight("green");
     lighttimer.current = setTimeout(() => {
       setLight("red");
-    }, Math.random() * (30000 - 20000) + 20000);
+    }, Math.random() * (20000 - 10000) + 10000);
   };
   let mounted = true;
 
+  let nonbenchedPlayers = players
+    .slice()
+    .filter((plyr) => !bench.includes(plyr.score_id));
+
   useEffect(() => {
     if (mounted) {
-      if (players.length) {
-        let playable = Games.filter((x) => x.min_players <= players.length);
+      if (nonbenchedPlayers.length) {
+        //set game
+        let playable = Games.filter(
+          (x) => x.min_players <= nonbenchedPlayers.length
+        );
         let int = Math.floor(Math.random() * playable.length);
         setGame(playable[int]);
 
-        let inactive = [...players];
+        let inactive = [...nonbenchedPlayers];
         let activeA = [];
         let activeB = [];
         let size = 0;
@@ -49,14 +58,19 @@ const Battle = () => {
         if (playable[int].c_fixed_ppl) {
           size = playable[int].min_players;
         } else {
-          size = (1 + Math.floor(Math.random() * (players.length / 2 - 1))) * 2;
+          size =
+            (1 +
+              Math.floor(Math.random() * (nonbenchedPlayers.length / 2 - 1))) *
+            2;
         }
 
         if (playable[int].c_hill) {
-          let r = Math.floor(Math.random() * inactive.length);
+          let r = nonbenchedPlayers.some((x) => x.priority === true)
+            ? nonbenchedPlayers.findIndex((x) => x.priority === true)
+            : Math.floor(Math.random() * inactive.length);
           activeA.push({ id: inactive[r].score_id, queue: 0, hill_score: 0 });
+          delete nonbenchedPlayers[r].priority;
           inactive.splice(r, 1);
-
           for (let i = 1; i < size; i++) {
             r = Math.floor(Math.random() * inactive.length);
             activeB.push({
@@ -69,14 +83,24 @@ const Battle = () => {
         } else if (playable[int].c_call_out) {
           let min = Math.min(...inactive.map((x) => x.player_score));
           let low = inactive.filter((x) => x.player_score === min);
-          let r = Math.floor(Math.random() * low.length);
-          activeA.push(
-            inactive.filter((x) => x.player_score === min)[r].score_id
-          );
+
+          if (nonbenchedPlayers.some((x) => x.priority === true)) {
+            let r = nonbenchedPlayers.findIndex((x) => x.priority === true);
+            activeA.push(inactive[r].score_id);
+            delete nonbenchedPlayers[r].priority;
+          } else {
+            let r = Math.floor(Math.random() * low.length);
+            activeA.push(
+              inactive.filter((x) => x.player_score === min)[r].score_id
+            );
+          }
         } else {
           let decider = 1;
           for (let i = 0; i < size; i++) {
-            let r = Math.floor(Math.random() * inactive.length);
+            let r = nonbenchedPlayers.some((x) => x.priority === true)
+              ? nonbenchedPlayers.findIndex((x) => x.priority === true)
+              : Math.floor(Math.random() * inactive.length);
+            delete nonbenchedPlayers[r].priority;
             if (decider > 0) {
               activeA.push(inactive[r].score_id);
             } else {
@@ -147,7 +171,7 @@ const Battle = () => {
       <div className="home">
         <div className="logo"></div>
         <div className="body">
-          {players.length ? (
+          {nonbenchedPlayers.length ? (
             <div className="title">
               Round {round + 1}: {game.title}
             </div>
@@ -223,8 +247,9 @@ const Battle = () => {
                           <div key={x.id}>
                             <div className="hill_name">
                               {
-                                players.find((user) => user.score_id == x.id)
-                                  .player_name
+                                nonbenchedPlayers.find(
+                                  (user) => user.score_id == x.id
+                                ).player_name
                               }
                             </div>
                             <div>&nbsp;: {x.hill_score}</div>
@@ -265,7 +290,7 @@ const Battle = () => {
         </div>
         <div className="footer">
           <Button onclick={() => navigate("/scores")} name="Cancel" />
-          {players.length ? (
+          {nonbenchedPlayers.length ? (
             <Button onclick={() => setShowScores(true)} name="Scores" />
           ) : (
             <Button onclick={() => navigate("/home")} name="Home" />

@@ -1,11 +1,18 @@
 import React, { useContext } from "react";
 import { PlayersContext } from "../../PlayersContext";
 import "./Modal.css";
+import { useNavigate } from "react-router-dom";
 
-const Modal = ({ show, onHide, id, updateScore }) => {
+const Modal = ({ show, onHide, id, updateScore, benched }) => {
   const { playercontext } = useContext(PlayersContext);
   const [players, setPlayers] = playercontext;
+  const navigate = useNavigate();
   let userloc = players.findIndex((user) => user.score_id === id);
+
+  const playFirst = () => {
+    players[userloc].priority = true;
+    navigate("/battle");
+  };
 
   if (!show) return null;
   return (
@@ -21,9 +28,16 @@ const Modal = ({ show, onHide, id, updateScore }) => {
             +
           </button>
         </div>
-        <button className="modalbtn" onClick={onHide}>
-          Close
-        </button>
+        <div className="btn-wrapper">
+          <button className="modalbtn" onClick={onHide}>
+            Close
+          </button>
+          {!benched && (
+            <button className="modalbtn" onClick={playFirst}>
+              Play
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
