@@ -68,7 +68,7 @@ const SignupModal = ({ show, onHide }) => {
   return (
     <div className="modal_bg">
       <div className="modal_content" id="signup">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <div className="field">
             <div>Username</div>
             <input

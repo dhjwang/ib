@@ -63,7 +63,7 @@ const Login = () => {
       <div className="home">
         <div className="logo"></div>
         <div className="body" id="form-wrapper">
-          <form className="login" onSubmit={checkLogin}>
+          <form className="login" onSubmit={checkLogin} autoComplete="off">
             <div className="field">
               <div>Username</div>
               <input
