@@ -181,17 +181,16 @@ const Games = [
 
   {
     id: 12,
-    title: "Prince of the Hill",
+    title: "One Leg Battle",
     description:
-      "The smaller version of 'king of the hill'. \
-                        Four players will take one round each and rotate until someone\
-                        reaches 4 points!",
-    min_players: 4,
+      "A one round each, but each player can only use one leg! \
+        Winner decided by majority vote.",
+    min_players: 2,
     c_light: false,
     c_ice: false,
-    c_fixed_ppl: true,
+    c_fixed_ppl: false,
     c_call_out: false,
-    c_hill: true,
+    c_hill: false,
   },
 
   {
@@ -208,19 +207,20 @@ const Games = [
     c_hill: false,
   },
 
-  {
-    id: 14,
-    title: "One Leg Battle",
-    description:
-      "A one round each, but each player can only use one leg! \
-        Winner decided by majority vote.",
-    min_players: 2,
-    c_light: false,
-    c_ice: false,
-    c_fixed_ppl: false,
-    c_call_out: false,
-    c_hill: false,
-  },
+  // {
+  //   id: 14,
+  //   title: "Prince of the Hill",
+  //   description:
+  //     "The smaller version of 'king of the hill'. \
+  //                       Four players will take one round each and rotate until someone\
+  //                       reaches 4 points!",
+  //   min_players: 4,
+  //   c_light: false,
+  //   c_ice: false,
+  //   c_fixed_ppl: true,
+  //   c_call_out: false,
+  //   c_hill: true,
+  // },
 ];
 
 export default Games;
